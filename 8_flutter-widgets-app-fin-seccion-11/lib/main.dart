@@ -25,7 +25,7 @@ class MainApp extends ConsumerWidget {// Aqui cambiamos de Stateles a Consumer w
     return MaterialApp.router(
       title: 'Flutter Widgets',
       routerConfig: appRouter,
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false, // Debug false in devMode **Debug
       theme: appTheme.getTheme(),
     );
   }

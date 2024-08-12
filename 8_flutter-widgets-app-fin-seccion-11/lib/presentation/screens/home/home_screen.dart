@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final scaffoldKey = GlobalKey<ScaffoldState>();// Esto es un Key que creo para tener la referencia del scaffol y así poderlo usar en side_menu **AppExp 
+    final scaffoldKey = GlobalKey<ScaffoldState>();// Esto es un Key que creo para tener la referencia del scaffold y así poderlo usar en side_menu **AppExp 
 
     return Scaffold(
       key: scaffoldKey,

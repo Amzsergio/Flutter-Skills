@@ -47,7 +47,7 @@ class _UiControlsViewState extends State<_UiControlsView> {
           }),
         ),
 
-        ExpansionTile(
+        ExpansionTile(// Boton de expansion al estilo de excel multiopci'on **Buttons **Style **Widget
           title: const Text('Vehículo de transporte'),
           subtitle: Text('$selectedTransportation'),
           children: [
