@@ -1,6 +1,6 @@
 
 
-// Crear el tema inicial **step 2
+
 import 'package:flutter/material.dart';
 
 class AppTheme {

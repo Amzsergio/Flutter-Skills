@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:widgets_app/presentation/screens/screens.dart';
-// Aquií encontramos varios tipos de Widgets que podemos personalizar y crear **Custom **Widgts **Style **go?Router
+
+// Aquií encontramos varios tipos de Widgets que podemos personalizar y crear **Custom **Widgts **Style **go_Router
 // GoRouter configuration
 final appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-
     GoRoute(
       path: '/',
       name: HomeScreen.name,
@@ -28,7 +28,7 @@ final appRouter = GoRouter(
       path: '/progress',
       name: ProgressScreen.name,
       builder: (context, state) => const ProgressScreen(),
-    ),//Loader y go_router **Routes **Loader
+    ), //Loader y go_router **Routes **Loader
 
     GoRoute(
       path: '/snackbars',

@@ -1,5 +1,6 @@
-import 'package:cinemapedia/presentation/providers/movies/movies_providers.dart';
+import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,13 +10,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: _HomeView());
+    return const Scaffold(
+      body: _HomeView(),
+      bottomNavigationBar: CustomBottomNavigation(),
+    );
   }
 }
 
 class _HomeView extends ConsumerStatefulWidget {
-  // Primero esto era stateful  porque cuando se carga la primera vez yo quiero que se cargue la primera página. **AppExp
-  // Si es un stateless se transforma en ConsumerWidget para **Riverpod , ahora en un stateful se usa ConsumerStatefulWidget y  ConsumerState
   const _HomeView();
 
   @override
@@ -28,20 +30,73 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     super.initState();
 
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
+    ref.read(upcomingMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
-    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final initialLoading = ref.watch(initialLoadingProvider);
+    if (initialLoading) return const FullScreenLoader();
 
-    return ListView.builder(
-      itemCount: nowPlayingMovies.length,
-      itemBuilder: (context, index) {
-        final movie = nowPlayingMovies[index];
-        return ListTile(
-          title: Text(movie.title),
+    final slideShowMovies = ref.watch(
+        moviesSlideshowProvider); // Esto es el provider de movies Slideshow **Provider
+    final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedMoviesProvider);
+    final upcomingMovies = ref.watch(upcomingMoviesProvider);
+
+    return CustomScrollView(slivers: [
+      const SliverAppBar(
+        floating: true,
+        flexibleSpace: FlexibleSpaceBar(
+          title: CustomAppbar(),
+        ),
+      ),
+      SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+        return Column(
+          children: [
+            // const CustomAppbar(),
+
+            MoviesSlideshow(
+                movies:
+                    slideShowMovies), //Aquí se envian las peliculas del slideshow. **Riverpod
+
+            MovieHorizontalListview(
+                movies: nowPlayingMovies,
+                title: 'En cines',
+                subTitle: 'Lunes 20',
+                loadNextPage: () => ref
+                    .read(nowPlayingMoviesProvider.notifier)
+                    .loadNextPage()), // El read se usa cuando se estan dentro de funciones nunca el watch **Riverpod
+
+            MovieHorizontalListview(
+                movies: upcomingMovies,
+                title: 'Próximamente',
+                subTitle: 'En este mes',
+                loadNextPage: () =>
+                    ref.read(upcomingMoviesProvider.notifier).loadNextPage()),
+
+            MovieHorizontalListview(
+                movies: popularMovies,
+                title: 'Populares',
+                // subTitle: '',
+                loadNextPage: () =>
+                    ref.read(popularMoviesProvider.notifier).loadNextPage()),
+
+            MovieHorizontalListview(
+                movies: topRatedMovies,
+                title: 'Mejor calificadas',
+                subTitle: 'Desde siempre',
+                loadNextPage: () =>
+                    ref.read(topRatedMoviesProvider.notifier).loadNextPage()),
+
+            const SizedBox(height: 10),
+          ],
         );
-      },
-    );
+      }, childCount: 1)),
+    ]);
   }
 }

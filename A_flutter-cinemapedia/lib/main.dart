@@ -7,12 +7,9 @@ import 'package:cinemapedia/config/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
-  await dotenv.load(
-      fileName:
-          '.env'); // Así es como uso env en flutter con la dependencia, tener en cuenta que flutter no las lee si se cambian en tiempos de ejecución.
+  await dotenv.load(fileName: '.env');
 
-  runApp(const ProviderScope(
-      child: MainApp())); // Esta es la configuración de **Riverpod
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -22,14 +19,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: appRouter,
-      debugShowCheckedModeBanner: false, // setear el debug mode **Step 1
-      theme: AppTheme().getTheme(), // llamar el tema **Step 3
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme().getTheme(),
     );
   }
 }
 
 
-// Entidades son objetos que son y serán idénticos entre diferentes aplicaciones de nuestra empresa. **Concept
-// DataSources , fuente de datos, no debería de importar dónde venga la data. **Concept
-// Repositorios , llaman a los origenes d los datos. 
-// Gestor de Datos es el puente enter todo lo anterior y mi UI. **Concept
+// El error que tenía era que aparecía Initializin gradle para siempre, después de haber dado restart cuando aparecía "No Connection to gradle server. Try restarting the server (Gradle for Java) "
+// Realicé la busqueda en internet pero ninguna de las opciones incluyendo hacer un gradle --clean sirvieron. Lo único que funcionó fue desinstalar las extensiones de dart, flutter y gradle y reinstalar dart y flutter sin gradle. **Errors
