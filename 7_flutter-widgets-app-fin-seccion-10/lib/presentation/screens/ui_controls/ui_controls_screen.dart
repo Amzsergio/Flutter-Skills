@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 // Aqui en los Ui Contolls se presentan los checkbox, switches, radioList, ExpansionTile
 class UiControlsScreen extends StatelessWidget {
   static const name = 'ui_controls_screen';
@@ -16,17 +17,22 @@ class UiControlsScreen extends StatelessWidget {
   }
 }
 
-class _UiControlsView extends StatefulWidget { // Se deja stateful porque decesitamos el bool isDeveloper **Switch **Button
+class _UiControlsView extends StatefulWidget {
+  // Se deja stateful porque necesitamos el bool isDeveloper **Switch **Button
   const _UiControlsView();
 
   @override
   State<_UiControlsView> createState() => _UiControlsViewState();
 }
 
-enum Transportation { car, plane, boat, submarine } // Esta enum es para el radioListTile
+enum Transportation {
+  car,
+  plane,
+  boat,
+  submarine
+} // Esta enum es para el radioListTile
 
 class _UiControlsViewState extends State<_UiControlsView> {
-
   bool isDeveloper = true;
   Transportation selectedTransportation = Transportation.car;
   bool wantsBreakfast = false;
@@ -46,8 +52,8 @@ class _UiControlsViewState extends State<_UiControlsView> {
             isDeveloper = !isDeveloper;
           }),
         ),
-
-        ExpansionTile(// Es
+        ExpansionTile(
+          // Es
           title: const Text('Vehículo de transporte'),
           subtitle: Text('$selectedTransportation'),
           children: [
@@ -89,7 +95,6 @@ class _UiControlsViewState extends State<_UiControlsView> {
             ),
           ],
         ),
-      
         CheckboxListTile(
           title: const Text('¿Desayuno?'),
           value: wantsBreakfast,
@@ -111,7 +116,6 @@ class _UiControlsViewState extends State<_UiControlsView> {
             wantsDinner = !wantsDinner;
           }),
         ),
-
       ],
     );
   }

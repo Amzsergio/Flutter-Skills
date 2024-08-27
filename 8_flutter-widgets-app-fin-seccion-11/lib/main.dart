@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';// Instalar la dependencia de Flutter-Riverpod **Riverpod // Aquí está la documentación de la nueva versión de riverPod al final de este archivo se encuentra los pros y contras.  https://docs-v2.riverpod.dev/docs/concepts/about_code_generation  **Tools **Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart'; // Instalar la dependencia de Flutter-Riverpod **Riverpod // Aquí está la documentación de la nueva versión de riverPod al final de este archivo se encuentra los pros y contras.  https://docs-v2.riverpod.dev/docs/concepts/about_code_generation  **Tools **Riverpod
 import 'package:widgets_app/config/router/app_router.dart';
 import 'package:widgets_app/config/theme/app_theme.dart';
 import 'package:widgets_app/presentation/providers/theme_provider.dart';
 
 void main() {
-  runApp(
-    const ProviderScope(// Widget que mantiene una referencia a todos los provider que usemos.f **Riverpod
-      child: MainApp()
-    )
-  );
+  runApp(const ProviderScope(
+      // Widget que mantiene una referencia a todos los provider que usemos. **Riverpod
+      child: MainApp()));
 }
 
-class MainApp extends ConsumerWidget {// Aqui cambiamos de Stateles a Consumer widget para poder manejar el estado de darkmode. //!A
+class MainApp extends ConsumerWidget {
+  // Aqui cambiamos de Stateles a Consumer widget para poder manejar el estado de darkmode. //!A
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref ) {
-
+  Widget build(BuildContext context, WidgetRef ref) {
     // final isDarkmode = ref.watch(isDarkmodeProvider); //!A
     // final selectedColor = ref.watch(selectedColorProvider); //!A
-    final AppTheme appTheme = ref.watch( themeNotifierProvider ); //! Unma vez creado mi ThemeNotifier, elimino las dos anteriores lineas y ahora voy a estar escuchando el themeNotifierProvider
+    final AppTheme appTheme = ref.watch(
+        themeNotifierProvider); //! Unma vez creado mi ThemeNotifier, elimino las dos anteriores lineas y ahora voy a estar escuchando el themeNotifierProvider
 
     return MaterialApp.router(
       title: 'Flutter Widgets',
